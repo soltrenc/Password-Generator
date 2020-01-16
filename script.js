@@ -14,7 +14,6 @@ function writePassword() {
 generateBtn.addEventListener("click", writePassword);
 
 function generatePassword() {
-    var passLength = parseInt(prompt("Please enter the length you want your password to be between 8 and 128 characters."));
 
     var lowerChar = "abcdefghijklmnopqrstuvwxyz";
     var upperChar = lowerChar.toUpperCase();
@@ -26,59 +25,55 @@ function generatePassword() {
 
     var guaranteeChar = []
 
-    if (isNaN(passLength)) {
-        alert("Choose a number fool!")
+    while (true) {
+        var passLength = prompt("Please enter the length you want your password to be between 8 and 128 characters.");
+        if (!isNaN(passLength)) {
+            if (passLength >= 8 && passLength <= 128) {
+                break;
+            } else {
+                alert("Please choose a number between 8 and 128.")
+            }
+        } else {
+            alert("Choose a number fool!")
+        }
     }
 
-    else if (passLength < minChar) {
-        alert("Password needs to be at least 8 characters or more.")
-
-    }
-
-    else if (passLength > maxChar) {
-        alert("Password needs to be 128 characters or less.")
-    }
-
-    else {
+    while (true) {
         var lower = confirm("Do you want to have lower case characters in your password?");
         var upper = confirm("Do you want to have upper case characters in your password?");
         var special = confirm("Do you want to have special characters in your password?");
         var num = confirm("Do you want to use numbers in your password?");
-
-    }
-
-    if (lower === false && upper === false && special === false && num === false) {
-        alert("You didn't choose any character types!")
-    }
-
-    else {
-
-        var charStr = ""
-
-        function genStr(a, b) {
-            if (a) { charStr += b }
+        if (lower === false && upper === false && special === false && num === false) {
+            alert("Must choose at least one condition!")
+        } else {
+            break;
         }
-
-        genStr(lower, lowerChar)
-        genStr(upper, upperChar)
-        genStr(special, specialChar)
-        genStr(num, numbers)
-
     }
+
+    var charStr = ""
+
+    function genStr(a, b) {
+        if (a) { charStr += b }
+    }
+
+    genStr(lower, lowerChar)
+    genStr(upper, upperChar)
+    genStr(special, specialChar)
+    genStr(num, numbers)
 
     if (special) {
-        guaranteeChar.push(specialChar[0])
+        guaranteeChar.push(specialChar)
     }
     if (num) {
-        guaranteeChar.push(numbers[0])
+        guaranteeChar.push(numbers)
     }
 
     if (lower) {
-        guaranteeChar.push(lowerChar[0])
+        guaranteeChar.push(lowerChar)
     }
 
     if (upper) {
-        guaranteeChar.push(upperChar[0])
+        guaranteeChar.push(upperChar)
     }
 
     var passStr = ""
@@ -95,5 +90,4 @@ function generatePassword() {
     return passStr
 
 }
-
 
